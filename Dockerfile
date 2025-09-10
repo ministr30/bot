@@ -15,8 +15,15 @@ RUN apt-get update && \
 COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
-# Copy bot sources
-COPY . /app/
+# Copy bot sources (only necessary files)
+COPY telegram_bot.py /app/
+COPY scheduler.py /app/
+COPY dialog_manager.py /app/
+COPY ui.py /app/
+COPY templates/ /app/templates/
+COPY supabase_migrations/ /app/supabase_migrations/
+COPY create_test_appointment.sql /app/
+COPY README.md /app/
 
 # Run bot (long polling)
 CMD ["python", "telegram_bot.py"]
